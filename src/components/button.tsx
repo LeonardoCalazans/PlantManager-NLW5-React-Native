@@ -1,6 +1,13 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, TouchableOpacityProps} from 'react-native';
-import colors from '../../styles/colors';
+import {
+    TouchableOpacity, 
+    Text, 
+    StyleSheet, 
+    TouchableOpacityProps
+}from 'react-native';
+
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
 interface ButtonProps extends TouchableOpacityProps{
     //nada mais é do que uma especia de contrato, quando alguem usar o component tem que respeitar esse contrato
@@ -29,7 +36,8 @@ const styles = StyleSheet.create({
         height: 56,
         paddingHorizontal: 15,
         borderRadius: 16,
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: fonts.heading
     },
     buttonText: {
         color: colors.white,

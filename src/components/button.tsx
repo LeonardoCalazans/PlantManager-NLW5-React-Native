@@ -15,7 +15,7 @@ interface ButtonProps extends TouchableOpacityProps{
     //passando um parametro e é tipado
 }
 
-export function Button({ title, ... rest } : ButtonProps){
+export function Button({ title, ... rest } : ButtonProps){ //esta tipado como ButtonProps
     return(
         <TouchableOpacity 
             style={styles.button} 
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 16,
         marginBottom: 20,
-        fontFamily: fonts.heading
     },
     buttonText: {
         color: colors.white,
+        fontFamily: fonts.heading,
         fontSize: 24
     }
 });

@@ -42,6 +42,7 @@ Follow the steps below
 $ yarn install
 # Start the project
 $ expo start
+# json-server ./src/services/server.json --host 192.168.1.6 --port 3333 --delay 700
 ```
 
 ## 💻 Project

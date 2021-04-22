@@ -11,16 +11,16 @@ import {
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-interface EnviromentButtonProps extends RectButtonProps {
+interface EnvironmentButtonProps extends RectButtonProps {
     title: string;
     active?: boolean; // essa interrogação quer dizer que o campo não é obrigatorio, typscript
 }
 
-export function EnviromentButton ({ 
+export function EnvironmentButton ({ 
     title,
     active = false,
     ...rest
-} : EnviromentButtonProps){
+} : EnvironmentButtonProps){
     return(
         <RectButton
             style={[

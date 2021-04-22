@@ -11,6 +11,8 @@ import { EnvironmentButton } from '../components/EnvironmentButton';
 import { Header } from '../components/Header';
 import { Load } from '../components/Load';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
+import { useNavigation } from '@react-navigation/native';
+import { PlantProps } from '../libs/storage';
 
 import api from '../services/api';
 import colors from '../styles/colors';
@@ -19,19 +21,6 @@ import fonts from '../styles/fonts';
 interface EnvironmentProps {
     key: string;
     title: string;
-}
-
-interface PlantProps {
-    id: string;
-    name: string;
-    about: string;
-    water_tips: string;
-    photo: string;
-    environments: [string];
-    frequency: {
-        times: number;
-        repeat_every: string;
-    }
 }
 
 export function PlantSelect() {
@@ -43,7 +32,8 @@ export function PlantSelect() {
 
     const [page, setPage] = useState(1);
     const [loadingMore, setLoadingMore] = useState(false);
-    const [loadedAll, setLoadedAll] = useState(false);
+
+    const navigation = useNavigation();
 
     function handleEnvironmentSelected(environment: string) {
         setEnvironmentSelected(environment);
@@ -85,6 +75,12 @@ export function PlantSelect() {
         fetchPlants()
     }
 
+    function handlePlantSelect(plant: PlantProps){
+        navigation.navigate('PlantSave', { plant });
+        // alem de estar chamando ela, tambem esta passando para ele os dados
+
+    }
+
     useEffect(() => {
         //useEffect vai carregar antes de a tela ser exibida para o usuario
         async function fetchEnvironment() {
@@ -109,7 +105,6 @@ export function PlantSelect() {
     if (loading)
         return <Load />
 
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -121,27 +116,33 @@ export function PlantSelect() {
                     você quer colocar sua planta?
             </Text>
             </View>
-{/* 
             <View>
                 <FlatList
                     data={environments}
+                    keyExtractor={(item) => String(item.key)} //id de indentificação para melhorar performance 
                     renderItem={({ item }) => (
                         <EnvironmentButton
                             title={item.title}
-                            active
+                            active={item.key === environmentSelected}
+                            onPress={() => handleEnvironmentSelected(item.key)}
                         />
                     )}
                     horizontal
                     showsHorizontalScrollIndicator={false} //vai tirar a abarra de rolagem
-                    contentContainerStyle={styles.EnvironmentList}
-
+                    contentContainerStyle={styles.environmentList}
+                    ListHeaderComponent={<View />}
+                    ListHeaderComponentStyle={{ marginRight: 3 }}
                 />
             </View>
-            <View style={styles.plants}> */}
-                {/* <FlatList
+            <View style={styles.plants}>
+                <FlatList
                     data={filteredPlants}
+                    keyExtractor={(item) => String(item.id)} //sempre tem que ter um id nas listas
                     renderItem={({ item }) => (
-                        <PlantCardPrimary data={item} />
+                        <PlantCardPrimary 
+                            data={item}
+                            onPress={() => handlePlantSelect(item)}
+                        />
                     )}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
@@ -153,7 +154,7 @@ export function PlantSelect() {
                             : <></>
                     }
                 />
-            </View> */}
+            </View>
         </View>
     )
 }
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         color: colors.heading,
     },
-    EnvironmentList: {
+    environmentList: {
         height: 40,
         justifyContent: 'center',
         paddingBottom: 5,

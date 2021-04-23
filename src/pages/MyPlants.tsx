@@ -11,6 +11,7 @@ import { loadPlant, PlantProps } from '../libs/storage';
 import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { PlantCardSecundary } from '../components/PlantCardSecundary';
+import { Load } from '../components/Load';
 
 import waterDrop from '../assets/waterdrop.png';
 import colors from '../styles/colors';
@@ -41,6 +42,9 @@ export function MyPlants() {
 
         loadStorageData();
     },[])
+
+    if (loading)
+        return <Load />
 
     return (
         <View style={styles.container}>

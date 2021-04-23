@@ -44,13 +44,35 @@ export function MyPlants() {
                 );
               } catch (error) {
                 Alert.alert(`Não foi possível remover! 😥`);
-                // console.log(error);
+                console.log(error);
               }
             },
           },
         ]);
       }
-
+      function handleOptionsPlants(plant: PlantProps) {
+        Alert.alert("Remover", `Deseja remover a ${plant.name}?`, [
+          {
+            text: "Não 🙏🏻",
+            style: "cancel",
+          },
+          {
+            text: "Sim 😥",
+            onPress: async () => {
+              try {
+                await removePlant(plant.id);
+    
+                setMyPlants((oldData) =>
+                  oldData.filter((item) => item.id !== plant.id)
+                );
+              } catch (error) {
+                Alert.alert(`Não foi possível remover! 😥`);
+                console.log(error);
+              }
+            },
+          },
+        ]);
+      }
     useEffect(() =>{
         async function loadStorageData() {
             const plantsStoraged = await loadPlant();
@@ -100,6 +122,7 @@ export function MyPlants() {
                         <PlantCardSecundary 
                             data={item}
                             handleRemove={() => {handleRemove(item)}} 
+                            handleOptionsPlants={() => {handleOptionsPlants(item)}}
                         />
                     )}
                     showsVerticalScrollIndicator={false}

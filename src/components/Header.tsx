@@ -8,6 +8,7 @@ import {
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Sharing from 'expo-sharing';
 
 import userImg from '../assets/user.png';
 import colors from '../styles/colors';
@@ -15,6 +16,8 @@ import fonts from '../styles/fonts';
 
 export function Header(){
     const [userName, setUserName] = useState<string>();
+    const [selectedImage, setSelectedImage] = React.useState(null);
+    
 
     useEffect(() => {
         async function loadStorageUserName() {
@@ -35,6 +38,7 @@ export function Header(){
             <Image 
                 source={userImg}
                 style={styles.image}
+                // onPress={handlePhotoSelect}
             />
 
         </View>

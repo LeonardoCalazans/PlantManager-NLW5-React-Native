@@ -74,9 +74,13 @@ export async function savePlant(plant: PlantProps) : Promise<void> {
 
         await AsyncStorage.setItem('@plantmanager:plants', 
         JSON.stringify({
-            ...newPlants, //pegando o que ja existia e adcionando na coleção
-            ...oldPlants // e mantando o antigo, para que não seja substituido sempre 
+            ...oldPlants, // e mantando o antigo, para que não seja substituido sempre 
+            ...newPlants //pegando o que ja existia e adcionando na coleção
         }));
+
+        if (oldPlants[plant.id]){
+            await Notifications.cancelScheduledNotificationAsync(oldPlants[plant.id].notificationId);
+        }
 
     }catch(error){  
         throw new Error(error);
@@ -123,4 +127,8 @@ export async function removePlant(id: string): Promise<void> {
         '@plantmanager:plants',
         JSON.stringify(plants)
     );
-  }
+}
+
+export async function optionsPlants(id: string): Promise<void> {
+    
+}

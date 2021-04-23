@@ -8,10 +8,10 @@ import {
     Alert,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { 
-    loadPlant, 
+import {
+    loadPlant,
     PlantProps,
-    removePlant 
+    removePlant
 } from '../libs/storage';
 import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
@@ -25,62 +25,42 @@ import fonts from '../styles/fonts';
 export function MyPlants() {
     const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
     const [loading, setLoading] = useState(true);
-    const [nextWatered, setNextWatered] = useState<string>();    
+    const [nextWatered, setNextWatered] = useState<string>();
 
     function handleRemove(plant: PlantProps) {
         Alert.alert("Remover", `Deseja remover a ${plant.name}?`, [
-          {
-            text: "Não 🙏🏻",
-            style: "cancel",
-          },
-          {
-            text: "Sim 😥",
-            onPress: async () => {
-              try {
-                await removePlant(plant.id);
-    
-                setMyPlants((oldData) =>
-                  oldData.filter((item) => item.id !== plant.id)
-                );
-              } catch (error) {
-                Alert.alert(`Não foi possível remover! 😥`);
-                console.log(error);
-              }
+            {
+                text: "Não 🙏🏻",
+                style: "cancel",
             },
-          },
-        ]);
-      }
-      function handleOptionsPlants(plant: PlantProps) {
-        Alert.alert("Remover", `Deseja remover a ${plant.name}?`, [
-          {
-            text: "Não 🙏🏻",
-            style: "cancel",
-          },
-          {
-            text: "Sim 😥",
-            onPress: async () => {
-              try {
-                await removePlant(plant.id);
-    
-                setMyPlants((oldData) =>
-                  oldData.filter((item) => item.id !== plant.id)
-                );
-              } catch (error) {
-                Alert.alert(`Não foi possível remover! 😥`);
-                console.log(error);
-              }
+            {
+                text: "Sim 😥",
+                onPress: async () => {
+                    try {
+                        await removePlant(plant.id);
+
+                        setMyPlants((oldData) =>
+                            oldData.filter((item) => item.id !== plant.id)
+                        );
+                    } catch (error) {
+                        Alert.alert(`Não foi possível remover! 😥`);
+                        console.log(error);
+                    }
+                },
             },
-          },
         ]);
-      }
-    useEffect(() =>{
+    }
+    function handleOptionsPlants(plant: PlantProps) {
+        
+    }
+    useEffect(() => {
         async function loadStorageData() {
             const plantsStoraged = await loadPlant();
 
             const nextTime = formatDistance(
                 new Date(plantsStoraged[0].dateTimeNotification).getTime(),
                 new Date().getTime(),
-                { locale: pt}
+                { locale: pt }
             );
 
             setNextWatered(
@@ -92,7 +72,7 @@ export function MyPlants() {
         }
 
         loadStorageData();
-    },[])
+    }, [])
 
     if (loading)
         return <Load />
@@ -100,7 +80,7 @@ export function MyPlants() {
     return (
         <View style={styles.container}>
             <Header />
-            
+
             <View style={styles.spotlight}>
                 <Image
                     source={waterDrop}
@@ -119,14 +99,14 @@ export function MyPlants() {
                     data={myPlants}
                     keyExtractor={item => String(item.id)}
                     renderItem={({ item }) => (
-                        <PlantCardSecundary 
+                        <PlantCardSecundary
                             data={item}
-                            handleRemove={() => {handleRemove(item)}} 
-                            handleOptionsPlants={() => {handleOptionsPlants(item)}}
+                            handleRemove={() => { handleRemove(item) }}
+                            handleOptionsPlants={() => { handleOptionsPlants(item) }}
                         />
                     )}
                     showsVerticalScrollIndicator={false}
-                    // contentContainerStyle={{flex: 1}}
+                // contentContainerStyle={{flex: 1}}
                 />
             </View>
         </View>
@@ -134,7 +114,7 @@ export function MyPlants() {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',

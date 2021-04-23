@@ -131,7 +131,7 @@ export function PlantSelect() {
                     showsHorizontalScrollIndicator={false} //vai tirar a abarra de rolagem
                     contentContainerStyle={styles.environmentList}
                     ListHeaderComponent={<View />}
-                    ListHeaderComponentStyle={{ marginRight: 3 }}
+                    // ListHeaderComponentStyle={{ marginRight: 3 }}
                 />
             </View>
             <View style={styles.plants}>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-        // backgroundColor: colors.background
+        backgroundColor: colors.background
     },
     header: {
         paddingHorizontal: 30
@@ -186,8 +186,10 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         paddingBottom: 5,
-        marginLeft: 22,
-        marginVertical: 32
+        marginLeft: 10,
+        marginVertical: 28.5,
+        // marginRightLastChild: 100
+        // backgroundColor: colors.red
     },
     plants: {
         flex: 1,

@@ -3,6 +3,7 @@ import * as Notifications from 'expo-notifications';
 import { format } from 'date-fns'
 
 export interface PlantProps {
+    image: any;
     id: string;
     name: string;
     about: string;

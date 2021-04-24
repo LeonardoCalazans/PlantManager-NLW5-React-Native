@@ -28,7 +28,7 @@ export function MyPlants() {
     const [nextWatered, setNextWatered] = useState<string>();
 
     function handleRemove(plant: PlantProps) {
-        Alert.alert("Remover", `Deseja remover a ${plant.name}?`, [
+        Alert.alert("Remover", `${plant.photo} Deseja remover a ${plant.name}?`, [
             {
                 text: "Não 🙏🏻",
                 style: "cancel",

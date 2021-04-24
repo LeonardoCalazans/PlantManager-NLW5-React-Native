@@ -16,13 +16,15 @@ import fonts from '../styles/fonts';
 
 export function Header(){
     const [userName, setUserName] = useState<string>();
-    const [selectedImage, setSelectedImage] = React.useState(null);
+    const [userPhoto, setUserPhoto] = useState<string>();
     
 
     useEffect(() => {
         async function loadStorageUserName() {
             const user = await AsyncStorage.getItem('@plantmanager:user');
+            const image = await AsyncStorage.getItem('@plantmanager:image');
             setUserName(user || '');
+            setUserPhoto(image || "../assets/User.png")
         }
 
         loadStorageUserName();
@@ -36,9 +38,9 @@ export function Header(){
             </View>
 
             <Image 
-                source={userImg}
+                source={{uri: userPhoto}}
                 style={styles.image}
-                // onPress={handlePhotoSelect}
+                // onPress={handleUserImage}
             />
 
         </View>
@@ -58,7 +60,8 @@ const styles = StyleSheet.create({
     image: {
         width: 75,
         height: 75,
-        borderRadius: 100
+        borderRadius: 100,
+        backgroundColor: colors.gray
     },
     greeting: {
         fontSize: 32,

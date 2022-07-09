@@ -66,4 +66,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) fi
 
 ---
 
-Made with 💜 by <a href="https://github.com/KallDrayck"> [Leonardo]</a> 👋
+Made with 💜 by <a href="https://github.com/leonardocalazans"> [Leonardo]</a> 👋
